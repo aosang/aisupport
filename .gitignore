@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+.next
+dist
+out
+
+# Turbo
+.turbo
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Debug
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE / Editor
+.DS_Store
+*.tsbuildinfo
+
+# Testing
+coverage
