@@ -1,21 +1,29 @@
-import { Button } from "@workspace/ui/components/button"
-import { add } from "@workspace/math/add"
+"use client"
+import { useQuery, useMutation, Authenticated, Unauthenticated  } from 'convex/react'
+import { api } from '@workspace/backend/_generated/api'
+import { Button } from '@workspace/ui/components/button'
+import { SignInButton, UserButton } from '@clerk/nextjs'
 
 export default function Page() {
+  const users = useQuery(api.users.getMany)
+  const add = useMutation(api.users.add)
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2 ">Button</Button>
+    <>
+      <Authenticated>
+        <div className="flex flex-col min-h-svh items-center justify-center">
+          <p>app/webs</p>
+          <UserButton />
+          <div className='max-w-sm w-full mx-auto gap-y-4 flex flex-col'>
+            {JSON.stringify(users, null, 2)}
+          </div>
+          <Button onClick={() => add()}>Add User</Button>
         </div>
-        <div className="text-muted-foreground font-mono text-xs">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-      <p>{add(2, 3)}</p>
-    </div>
+      </Authenticated>
+      <Unauthenticated>
+        <p>Must be logged in to see this</p>
+        <SignInButton>Sign In!</SignInButton>
+      </Unauthenticated>
+    </>
   )
 }

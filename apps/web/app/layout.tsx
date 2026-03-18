@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google"
-
+import { Providers } from "@/components/provider"
+import { ClerkProvider } from '@clerk/nextjs'
+import { ui } from '@clerk/ui'
 import "@workspace/ui/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -25,7 +26,9 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
       <body className="bg-background text-foreground">
-        <ThemeProvider>{children}</ThemeProvider>
+     <ClerkProvider ui={ui}>
+        <Providers>{children}</Providers>
+      </ClerkProvider>
       </body>
     </html>
   )

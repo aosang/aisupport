@@ -6,7 +6,8 @@
       "@/*": ["./*"],
       "@workspace/ui/globals.css": ["../../packages/ui/src/styles/globals.css"],
       "@workspace/ui/*": ["../../packages/ui/src/*"],
-      "@workspace/math/*": ["../../packages/math/src/*"]
+      "@workspace/math/*": ["../../packages/math/src/*"],
+      "@workspace/backend/*": ["../../packages/backend/convex/*"]
     },
     "plugins": [
       {
