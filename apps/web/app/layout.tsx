@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import { Providers } from "@/components/provider"
 import { ClerkProvider } from '@clerk/nextjs'
-import { ui } from '@clerk/ui'
 import "@workspace/ui/globals.css"
 
 const fontSans = Geist({
@@ -26,8 +25,15 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
       <body className="bg-background text-foreground">
-     <ClerkProvider ui={ui}>
-        <Providers>{children}</Providers>
+     <ClerkProvider
+        signInUrl="/sign-in"
+        signUpUrl="/sign-up"
+        signInForceRedirectUrl="/org-selection"
+        signUpForceRedirectUrl="/org-selection"
+      >
+        <Providers>
+          {children}
+        </Providers>
       </ClerkProvider>
       </body>
     </html>
