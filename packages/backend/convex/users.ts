@@ -23,6 +23,8 @@ export const add = mutation({
       throw new Error("No organization found");
     }
 
+    throw new Error("Trakcing test");
+
     const userId = await ctx.db.insert("users", {
       name: 'miles'
     })

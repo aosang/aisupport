@@ -31,3 +31,6 @@ yarn-error.log*
 
 # Testing
 coverage
+
+#sentry
+.env.sentry-build-plugin
