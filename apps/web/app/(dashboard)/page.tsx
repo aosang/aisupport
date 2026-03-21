@@ -12,9 +12,9 @@ export default function Page() {
     <>
       <div className="flex flex-col min-h-svh items-center justify-center">
         <p>app/web</p>
-        <UserButton />
+        {/* <UserButton />
         <OrganizationSwitcher />
-        <Button onClick={() => add()}>Add User</Button>
+        <Button onClick={() => add()}>Add User</Button> */}
       </div>
     </>
   )
