@@ -72,9 +72,10 @@ const accountItems = [
 export const DashboardSidebar = () => {
   const pathname = usePathname()
   const isActive = (url: string) => {
-    if(url === "/") {
-      return pathname.startsWith(url)
+    if (url === "/") {
+      return pathname === "/"
     }
+    return pathname === url || pathname.startsWith(`${url}/`)
   }
 
   return (
@@ -110,7 +111,14 @@ export const DashboardSidebar = () => {
             <SidebarMenu>
               {customerSupportItems.map((item) => (
                 <SidebarMenuItem key={item.title} className="mt-2">
-                  <SidebarMenuButton asChild tooltip={item.title} isActive={isActive(item.url)}>
+                  <SidebarMenuButton 
+                    asChild 
+                    tooltip={item.title} 
+                    isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) && "bg-linear-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
+                  >
                     <Link href={item.url}>
                       <item.icon className="size-4" aria-hidden />
                       <span>{item.title}</span>
@@ -129,7 +137,14 @@ export const DashboardSidebar = () => {
             <SidebarMenu>
               {configrationItems.map((item) => (
                 <SidebarMenuItem key={item.title} className="mt-2">
-                  <SidebarMenuButton asChild tooltip={item.title} isActive={isActive(item.url)}>
+                  <SidebarMenuButton 
+                    asChild 
+                    tooltip={item.title} 
+                    isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) && "bg-linear-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
+                  >
                     <Link href={item.url}>
                       <item.icon className="size-4" aria-hidden />
                       <span>{item.title}</span>
@@ -148,7 +163,14 @@ export const DashboardSidebar = () => {
             <SidebarMenu>
               {accountItems.map((item) => (
                 <SidebarMenuItem key={item.title} className="mt-2">
-                  <SidebarMenuButton asChild tooltip={item.title} isActive={isActive(item.url)}>
+                  <SidebarMenuButton 
+                    asChild 
+                    tooltip={item.title} 
+                    isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) && "bg-linear-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
+                  >
                     <Link href={item.url}>
                       <item.icon className="size-4" aria-hidden />
                       <span>{item.title}</span>
