@@ -38,9 +38,8 @@
   --sidebar-accent-foreground: var(--sidebar-foreground);
   --sidebar-border: oklch(0.9276 0.0058 264.5313);
   --sidebar-ring: oklch(0.6231 0.188 259.8145);
-  --font-sans: Inter, sans-serif;
-  --font-serif: Source Serif 4, serif;
-  --font-mono: JetBrains Mono, monospace;
+  /* 不在此处写 --font-sans / --font-mono：会与 next/font 注入的 CSS 变量冲突，
+     导致预加载了 Geist 但实际仍用 Inter，触发 “preloaded but not used” 警告 */
   --radius: 0.475rem;
   --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
@@ -91,9 +90,8 @@
   --sidebar-accent-foreground: var(--sidebar-foreground);
   --sidebar-border: oklch(0.3715 0 0);
   --sidebar-ring: oklch(0.6231 0.188 259.8145);
-  --font-sans: Inter, sans-serif;
-  --font-serif: Source Serif 4, serif;
-  --font-mono: JetBrains Mono, monospace;
+  /* 不在此处写 --font-sans / --font-mono：会与 next/font 注入的 CSS 变量冲突，
+     导致预加载了 Geist 但实际仍用 Inter，触发 “preloaded but not used” 警告 */
   --radius: 0.475rem;
   --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
@@ -160,6 +158,17 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+}
+
+/* 默认字体栈；next/font 在 <html> 上的 class 会覆盖 --font-sans / --font-mono（更高优先级） */
+@layer base {
+  html {
+    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji";
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  }
 }
 
 @layer base {

@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import { Providers } from "@/components/provider"
 import { ClerkProvider } from "@clerk/nextjs"
-import { ui } from "@clerk/ui"
 import "@workspace/ui/globals.css"
 
 const fontSans = Geist({
@@ -12,6 +11,7 @@ const fontSans = Geist({
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  preload: false,
 })
 
 export default function RootLayout({
@@ -27,7 +27,6 @@ export default function RootLayout({
     >
       <body className="bg-background text-foreground">
      <ClerkProvider
-        ui={ui}
         signInUrl="/sign-in"
         signUpUrl="/sign-up"
         signInForceRedirectUrl="/org-selection"

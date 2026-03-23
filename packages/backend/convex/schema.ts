@@ -1,20 +1,30 @@
-/*
-  defineSchema：定义整个数据库的 schema。
-  defineTable：定义单张表的结构。
-
-  当前 schema 含义：
-  有一张表叫 users
-  表里有一个字段 name，类型是 v.string()（字符串）
-  Convex 会自动：
-
-  为每张表生成 _id 字段
-  为每条记录生成 _creationTime 字段
-*/ 
-
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  contactSessions: defineTable({
+    name: v.string(),
+    email: v.string(),
+    organizationID: v.string(),
+    expiresAt: v.number(),
+    metadata: v.optional(v.object({
+      userAgent: v.optional(v.string()),
+      language: v.optional(v.string()),
+      languages: v.optional(v.string()),
+      platform: v.optional(v.string()),
+      vendor: v.optional(v.string()),
+      screenResolution: v.optional(v.string()),
+      viewportSize: v.optional(v.string()),
+      timeZone: v.optional(v.string()),
+      timeZoneOffset: v.optional(v.number()),
+      cookiesEnabled: v.optional(v.boolean()),
+      referrer: v.optional(v.string()),
+      currentUrl: v.optional(v.string()),
+    }))
+  })
+  .index('by_organization_id', ['organizationID'])
+  .index('by_expires_at', ['expiresAt']),
+
   users: defineTable({
     name: v.string(),
   })
