@@ -15,16 +15,20 @@ import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
 import { api } from "@workspace/backend/_generated/api";
 import { Doc } from "@workspace/backend/_generated/dataModel";
 import { useMutation } from 'convex/react'
+import { useAtomValue, useSetAtom } from 'jotai';
+import { contactSessionIdAtomFamily, organizationIDAtom } from '@/modules/widget/atoms/widget-atoms';
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
 })
 
-// Temporary test organizationID, before we add state management
-const organizationID = '123'
-
 export const WidgetAuthScreen = () => {
+  const organizationID = useAtomValue(organizationIDAtom)
+  const setContactSessionId = useSetAtom(
+    contactSessionIdAtomFamily(organizationID || "")
+  )
+
   // form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,7 +66,7 @@ export const WidgetAuthScreen = () => {
       metadata,
     })
 
-     console.log({contactSessionId}) 
+    setContactSessionId(contactSessionId)
   }
 
   return (

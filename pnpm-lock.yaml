@@ -53,6 +53,9 @@ importers:
       convex:
         specifier: ^1.33.1
         version: 1.33.1(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@6.0.6)
+      lucide-react:
+        specifier: ^0.577.0
+        version: 0.577.0(react@19.2.4)
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -117,6 +120,9 @@ importers:
       jotai:
         specifier: ^2.18.1
         version: 2.18.1(@babel/core@7.29.0)(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.4)
+      jotai-family:
+        specifier: ^1.0.1
+        version: 1.0.1(jotai@2.18.1(@babel/core@7.29.0)(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.4))
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.2.4)
@@ -169,6 +175,9 @@ importers:
 
   packages/backend:
     dependencies:
+      '@clerk/backend':
+        specifier: ^3.2.2
+        version: 3.2.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       convex:
         specifier: ^1.33.1
         version: 1.33.1(bufferutil@4.1.0)(react@19.2.4)(utf-8-validate@6.0.6)
@@ -181,7 +190,7 @@ importers:
         version: link:../typescript-config
       typescript:
         specifier: latest
-        version: 5.9.3
+        version: 6.0.2
 
   packages/eslint-config:
     devDependencies:
@@ -232,7 +241,7 @@ importers:
         version: link:../typescript-config
       typescript:
         specifier: latest
-        version: 5.9.3
+        version: 6.0.2
 
   packages/typescript-config: {}
 
@@ -262,6 +271,9 @@ importers:
       input-otp:
         specifier: ^1.4.2
         version: 1.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      lucide-react:
+        specifier: ^0.577.0
+        version: 0.577.0(react@19.2.4)
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -519,6 +531,10 @@ packages:
     resolution: {integrity: sha512-xX0docBaMUhGAEdbP/QTlGErxNR9d0VYFMLq32vM7v0TgYPZcChC9Q735nb/TNVmIZK3besiM0LlRQ7/XsQ5pw==, tarball: https://registry.npmmirror.com/@clerk/backend/-/backend-3.2.1.tgz}
     engines: {node: '>=20.9.0'}
 
+  '@clerk/backend@3.2.2':
+    resolution: {integrity: sha512-legJnKmsFWicG1jR093aiK/fWS75Xjcm6fu98xbZI0Gu/gfKdQFp4CGd68zmVWMklQo6CWCqGrqkrFKGBBX9EA==, tarball: https://registry.npmmirror.com/@clerk/backend/-/backend-3.2.2.tgz}
+    engines: {node: '>=20.9.0'}
+
   '@clerk/localizations@4.2.2':
     resolution: {integrity: sha512-Qgbq2GLQOoWRn4TVrn/AcVi0wYp60CHoWuklRbrTgqlji4+rnvoQeZn8N9xy1yQ4JkfNuXey5ISbsxK4c4B7Jw==, tarball: https://registry.npmmirror.com/@clerk/localizations/-/localizations-4.2.2.tgz}
     engines: {node: '>=20.9.0'}
@@ -540,6 +556,18 @@ packages:
 
   '@clerk/shared@4.3.1':
     resolution: {integrity: sha512-kdpwUu8n2txr+98I9cD8Ms8ZdqQkDJEVWP73i1/T7FAGXmM0G8j1qEC+C2pRnZGuDRwkJbn4Py8qT/Vsy8eDCQ==, tarball: https://registry.npmmirror.com/@clerk/shared/-/shared-4.3.1.tgz}
+    engines: {node: '>=20.9.0'}
+    peerDependencies:
+      react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+      react-dom: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
+  '@clerk/shared@4.3.2':
+    resolution: {integrity: sha512-tYYzdY4Fxb02TO4RHoLRFzEjXJn0iFDfoKhWtGyqf2AaIgkprTksunQtX0hnVssHMr3XD/E2S00Vrb+PzX3jCQ==, tarball: https://registry.npmmirror.com/@clerk/shared/-/shared-4.3.2.tgz}
     engines: {node: '>=20.9.0'}
     peerDependencies:
       react: ^18.0.0 || ~19.0.3 || ~19.1.4 || ~19.2.3 || ~19.3.0-0
@@ -4724,6 +4752,12 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==, tarball: https://registry.npmmirror.com/jiti/-/jiti-2.6.1.tgz}
     hasBin: true
 
+  jotai-family@1.0.1:
+    resolution: {integrity: sha512-Zb/79GNDhC/z82R+6qTTpeKW4l4H6ZCApfF5W8G4SH37E4mhbysU7r8DkP0KX94hWvjB/6lt/97nSr3wB+64Zg==, tarball: https://registry.npmmirror.com/jotai-family/-/jotai-family-1.0.1.tgz}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      jotai: '>=2.9.0'
+
   jotai@2.18.1:
     resolution: {integrity: sha512-e0NOzK+yRFwHo7DOp0DS0Ycq74KMEAObDWFGmfEL28PD9nLqBTt3/Ug7jf9ca72x0gC9LQZG9zH+0ISICmy3iA==, tarball: https://registry.npmmirror.com/jotai/-/jotai-2.18.1.tgz}
     engines: {node: '>=12.20.0'}
@@ -6164,6 +6198,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@6.0.2:
+    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==, tarball: https://registry.npmmirror.com/typescript/-/typescript-6.0.2.tgz}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uglify-js@3.19.3:
     resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==, tarball: https://registry.npmmirror.com/uglify-js/-/uglify-js-3.19.3.tgz}
     engines: {node: '>=0.8.0'}
@@ -6645,6 +6684,15 @@ snapshots:
       - react
       - react-dom
 
+  '@clerk/backend@3.2.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@clerk/shared': 4.3.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      standardwebhooks: 1.0.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   '@clerk/localizations@4.2.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@clerk/shared': 4.3.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -6671,6 +6719,17 @@ snapshots:
       tslib: 2.8.1
 
   '@clerk/shared@4.3.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      '@tanstack/query-core': 5.90.16
+      dequal: 2.0.3
+      glob-to-regexp: 0.4.1
+      js-cookie: 3.0.5
+      std-env: 3.10.0
+    optionalDependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
+  '@clerk/shared@4.3.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@tanstack/query-core': 5.90.16
       dequal: 2.0.3
@@ -11285,6 +11344,10 @@ snapshots:
 
   jiti@2.6.1: {}
 
+  jotai-family@1.0.1(jotai@2.18.1(@babel/core@7.29.0)(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.4)):
+    dependencies:
+      jotai: 2.18.1(@babel/core@7.29.0)(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.4)
+
   jotai@2.18.1(@babel/core@7.29.0)(@babel/template@7.28.6)(@types/react@19.2.14)(react@19.2.4):
     optionalDependencies:
       '@babel/core': 7.29.0
@@ -12911,6 +12974,8 @@ snapshots:
       - supports-color
 
   typescript@5.9.3: {}
+
+  typescript@6.0.2: {}
 
   uglify-js@3.19.3:
     optional: true
