@@ -117,7 +117,11 @@ export const WidgetAuthScreen = () => {
               </FormItem>
             )}
           />
-          <Button disabled={form.formState.isSubmitting} size='lg' type='submit'>
+          <Button 
+            disabled={form.formState.isSubmitting} 
+            size='lg' 
+            type='submit'
+          >
             Continue
           </Button>
         </form> 
