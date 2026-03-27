@@ -13,17 +13,49 @@ export type AIResponseProps = HTMLAttributes<HTMLDivElement> & {
 
 const components: Options["components"] = {
   ol: ({ children, className, ...props }) => (
-    <ol className={cn("ml-4 list-outside list-decimal", className)} {...props}>
+    <ol
+      className={cn("ml-4 min-w-0 list-outside list-decimal wrap-break-word", className)}
+      {...props}
+    >
       {children}
     </ol>
   ),
   li: ({ children, className, ...props }) => (
-    <li className={cn("py-1", className)} {...props}>
+    <li className={cn("min-w-0 wrap-break-word py-1", className)} {...props}>
       {children}
     </li>
   ),
+  pre: ({ children, className, ...props }) => (
+    <pre
+      className={cn(
+        "max-w-full overflow-x-auto rounded-md bg-muted p-3 text-xs",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </pre>
+  ),
+  code: ({ children, className, ...props }) => {
+    const isBlock = Boolean(className?.includes("language-"));
+    return (
+      <code
+        className={cn(
+          "wrap-break-word",
+          !isBlock && "rounded bg-muted px-1 py-0.5 text-[0.9em]",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
   ul: ({ children, className, ...props }) => (
-    <ul className={cn("ml-4 list-outside list-decimal", className)} {...props}>
+    <ul
+      className={cn("ml-4 min-w-0 list-outside list-disc wrap-break-word", className)}
+      {...props}
+    >
       {children}
     </ul>
   ),
@@ -87,7 +119,7 @@ export const AIResponse = memo(
   ({ className, options, children, ...props }: AIResponseProps) => (
     <div
       className={cn(
-        "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        "size-full min-w-0 max-w-full wrap-break-word [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
         className,
       )}
       {...props}

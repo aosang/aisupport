@@ -1,6 +1,7 @@
 "use client"
 
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header"
+import { WidgetFooter } from "@/modules/widget/ui/components/widget-footer"
 import { Button } from "@workspace/ui/components/button"
 import { useAtomValue, useSetAtom } from "jotai"
 import { MessageSquareIcon, ChevronRightIcon } from 'lucide-react'
@@ -67,6 +68,7 @@ export const WidgetSelectionScreen = () => {
           <ChevronRightIcon />
         </Button>
       </div>
+      <WidgetFooter />
     </>
   )
 } 
