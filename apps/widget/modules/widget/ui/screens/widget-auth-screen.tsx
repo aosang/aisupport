@@ -16,7 +16,7 @@ import { api } from "@workspace/backend/_generated/api";
 import { Doc } from "@workspace/backend/_generated/dataModel";
 import { useMutation } from 'convex/react'
 import { useAtomValue, useSetAtom } from 'jotai';
-import { contactSessionIdAtomFamily, organizationIDAtom } from '@/modules/widget/atoms/widget-atoms';
+import { contactSessionIdAtomFamily, organizationIDAtom, screenAtom } from '@/modules/widget/atoms/widget-atoms';
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -24,6 +24,8 @@ const formSchema = z.object({
 })
 
 export const WidgetAuthScreen = () => {
+  const setScreen = useSetAtom(screenAtom)
+
   const organizationID = useAtomValue(organizationIDAtom)
   const setContactSessionId = useSetAtom(
     contactSessionIdAtomFamily(organizationID || "")
@@ -67,6 +69,7 @@ export const WidgetAuthScreen = () => {
     })
 
     setContactSessionId(contactSessionId)
+    setScreen("selection")
   }
 
   return (
