@@ -1,5 +1,5 @@
 import { AuthGuard } from "@/modules/auth/ui/components/auth-guard"
-import { DashboardSidebar } from "@/modules/dashboard/components/dashboard-sidebar"
+import { DashboardSidebar } from "@/modules/dashboard/ui/components/dashboard-sidebar"
 import { OrganizationGuard } from "@/modules/auth/ui/components/organization-guard"
 import { SidebarProvider } from "@workspace/ui/components/sidebar"
 import { cookies } from 'next/headers'
