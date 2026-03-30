@@ -87,11 +87,11 @@ export const ConversationsPanel = () => {
           </SelectContent>
         </Select>
       </div>
-      {isLoadingFirstPage? (
+      {isLoadingFirstPage ? (
         <SkeletonConversations />
       ): (
-        <ScrollArea className="max-h-[calc(100vh-53px)]">
-          <div className="flex w-full flex-1 flex-col text-sm">
+        <ScrollArea className="min-h-0 flex-1">
+          <div className="flex w-full min-w-0 flex-1 flex-col text-sm">
             {conversations.results.map(conversation => {
               const isLastMessageFromOperator = conversation.lastMessage?.message?.role !== "user"
 
