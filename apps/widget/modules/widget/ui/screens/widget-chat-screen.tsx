@@ -89,7 +89,7 @@ export const WidgetChatScreen = () => {
       {initialNumItems: 10}
   )
 
-  const { topElementRef, hanldeLoadMore, canLoadMore, isLoadingMore  } = useInfiniteScroll({
+  const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore  } = useInfiniteScroll({
     status: messages.status,
     loadMore: messages.loadMore,
     loadSize: 10,
@@ -123,7 +123,7 @@ export const WidgetChatScreen = () => {
           <InfiniteScrollTrigger 
             canLoadMore={canLoadMore}
             isLoadingMore={isLoadingMore}
-            onLoadMore={hanldeLoadMore}
+            onLoadMore={handleLoadMore}
             ref={topElementRef}
           />
           {toUIMessages(messages.results?? [])?.map(message => {

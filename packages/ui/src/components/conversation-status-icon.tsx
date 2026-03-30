@@ -23,7 +23,7 @@ const statusConfig = {
   },
 } as const
 
-export const CoversationStatusIcon = ({
+export const ConversationStatusIcon = ({
   status,
   className
 } : ConversationStatusIconProps) => {

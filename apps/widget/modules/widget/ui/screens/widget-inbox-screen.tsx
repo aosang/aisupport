@@ -2,7 +2,7 @@
 import { useAtomValue, useSetAtom } from "jotai"
 import { formatDistanceToNow } from 'date-fns'
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header"
-import { CoversationStatusIcon } from '@workspace/ui/components/conversation-status-icon'
+import { ConversationStatusIcon } from '@workspace/ui/components/conversation-status-icon'
 import { WidgetFooter } from "../components/widget-footer"
 import { Button } from "@workspace/ui/components/button"
 import { ArrowLeftIcon } from "lucide-react"
@@ -33,7 +33,7 @@ export const WidgetInboxScreen = () => {
     }
   )
 
-  const { topElementRef, hanldeLoadMore, canLoadMore, isLoadingMore  } = useInfiniteScroll({
+  const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore  } = useInfiniteScroll({
     status: conversations.status,
     loadMore: conversations.loadMore,
     loadSize: 10,
@@ -77,7 +77,7 @@ export const WidgetInboxScreen = () => {
                   <p className="min-w-0 flex-1 truncate text-sm">
                     {conversation.lastMessage?.text}
                   </p>
-                  <CoversationStatusIcon status={conversation.status} />
+                  <ConversationStatusIcon status={conversation.status} />
                 </div>
               </div>
             </Button>
@@ -86,7 +86,7 @@ export const WidgetInboxScreen = () => {
         <InfiniteScrollTrigger
           canLoadMore={canLoadMore}
           isLoadingMore={isLoadingMore}
-          onLoadMore={hanldeLoadMore}
+          onLoadMore={handleLoadMore}
           ref={topElementRef}
         />
       </div>

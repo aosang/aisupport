@@ -15,7 +15,7 @@ export const useInfiniteScroll = ({
 } : UseInfiniteScrollProps) => {
   const topElementRef  = useRef<HTMLDivElement>(null)
 
-  const hanldeLoadMore = useCallback(() => {
+  const handleLoadMore = useCallback(() => {
     if(status === "CanLoadMore") {
       loadMore(loadSize)
     }
@@ -31,7 +31,7 @@ export const useInfiniteScroll = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if(entry?.isIntersecting) {
-          hanldeLoadMore()
+          handleLoadMore()
         }
       },
       {threshold: 0.1}
@@ -43,11 +43,11 @@ export const useInfiniteScroll = ({
       observer.disconnect()
     }
 
-  }, [hanldeLoadMore, observerEnabled])
+  }, [handleLoadMore, observerEnabled])
 
   return {
     topElementRef,
-    hanldeLoadMore,
+    handleLoadMore,
     canLoadMore: status === "CanLoadMore",
     isLoadingMore: status === "LoadingMore",
     isLoadingFirstPage: status === "LoadingFirstPage",
