@@ -84,6 +84,12 @@ export const create = mutation({
       })
     }
 
+    if(conversation.status === 'unresolved') {
+      await ctx.db.patch(args.conversationId, {
+        status: "escalated"
+      })
+    }
+
     const orgId = identity.orgId as string
     if(!orgId || conversation.organizationID !== orgId) {
       throw new ConvexError({
