@@ -6,6 +6,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@workspace/ui"],
+  devIndicators: false,
   turbopack: {
     root: join(__dirname, "../.."),
   },

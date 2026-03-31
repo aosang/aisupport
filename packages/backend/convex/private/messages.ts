@@ -1,12 +1,59 @@
 import { saveMessage } from "@convex-dev/agent";
 import { components } from "../_generated/api"; 
-import { mutation, query } from "../_generated/server";
+import { mutation, query, action } from "../_generated/server";
 import { ConvexError, v } from 'convex/values'
 import { supportAgent } from "../system/ai/agents/supportAgent";
 import { paginationOptsValidator } from "convex/server";
+import { generateText} from 'ai'
+import { createOpenAI } from "@ai-sdk/openai";
+
+const openai = createOpenAI({
+  baseURL: "https://api.gptsapi.net/v1",
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export const enhanceResponse = action({
+  args: {
+    prompt: v.string()
+  },
+
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity()
+
+    if(identity === null) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Identity not found"
+      })
+    }
+
+    const orgId = identity.orgId as string
+    if(!orgId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Invalid organization ID"
+      })
+    }
+
+    const response = await generateText({
+      model: openai.chat("gpt-4o-mini"),
+      messages: [
+        {
+          role: 'system',
+          content: "Enhance the operator's message to be more professional, clear, and helpful while maintaining their intent and key information"
+        },
+        {
+          role: 'user',
+          content: args.prompt
+        }
+      ]
+    })
+    return response.text 
+  }
+})
 
 export const create = mutation({
-  args: {
+  args: { 
     prompt: v.string(),
     conversationId: v.id('conversations')
   },

@@ -119,6 +119,7 @@ export const AIInputTextarea = ({
         "text-sm!",
         "w-full resize-none rounded-none border-none p-3 shadow-none outline-none ring-0",
         "bg-transparent dark:bg-transparent",
+        "disabled:bg-transparent disabled:opacity-100 dark:disabled:bg-transparent",
         "focus-visible:ring-0",
         className
       )}
