@@ -22,7 +22,14 @@ function DropdownMenuPortal({
 
 function DropdownMenuTrigger({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
+}: Omit<
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>,
+  "children"
+> & {
+  children?: React.ReactNode
+  /** Radix `asChild` (some TS versions omit it from re-exports). */
+  asChild?: boolean
+}) {
   return (
     <DropdownMenuPrimitive.Trigger
       data-slot="dropdown-menu-trigger"
@@ -62,10 +69,18 @@ function DropdownMenuItem({
   className,
   inset,
   variant = "default",
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
+}: Omit<
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>,
+  "children" | "className"
+> & {
+  className?: string
+  children?: React.ReactNode
   inset?: boolean
   variant?: "default" | "destructive"
+  /** DOM handler (some TS versions omit it from re-exports). */
+  onClick?: React.MouseEventHandler<HTMLDivElement>
 }) {
   return (
     <DropdownMenuPrimitive.Item
@@ -77,7 +92,9 @@ function DropdownMenuItem({
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </DropdownMenuPrimitive.Item>
   )
 }
 

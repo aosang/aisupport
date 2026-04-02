@@ -5,12 +5,7 @@ import { ConvexError, v } from 'convex/values'
 import { supportAgent } from "../system/ai/agents/supportAgent";
 import { paginationOptsValidator } from "convex/server";
 import { generateText} from 'ai'
-import { createOpenAI } from "@ai-sdk/openai";
-
-const openai = createOpenAI({
-  baseURL: "https://api.gptsapi.net/v1",
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import { openaiProvider } from "../lib/aiProvider";
 
 export const enhanceResponse = action({
   args: {
@@ -36,7 +31,7 @@ export const enhanceResponse = action({
     }
 
     const response = await generateText({
-      model: openai.chat("gpt-4o-mini"),
+      model: openaiProvider.chat("gpt-4o-mini"),
       messages: [
         {
           role: 'system',

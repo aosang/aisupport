@@ -5,10 +5,17 @@ import { Label as LabelPrimitive } from "radix-ui"
 
 import { cn } from "@workspace/ui/lib/utils"
 
-function Label({
-  className,
-  ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
+type LabelRootProps = Omit<
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>,
+  "htmlFor" | "children"
+>
+
+export type LabelProps = LabelRootProps & {
+  /** Standard `<label htmlFor="...">`; some Radix re-exports use `never` here. */
+  htmlFor?: React.LabelHTMLAttributes<HTMLLabelElement>["htmlFor"]
+}
+
+function Label({ className, children, ...props }: React.PropsWithChildren<LabelProps>) {
   return (
     <LabelPrimitive.Root
       data-slot="label"
@@ -17,7 +24,9 @@ function Label({
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </LabelPrimitive.Root>
   )
 }
 
