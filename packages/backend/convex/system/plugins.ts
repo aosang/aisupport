@@ -11,7 +11,7 @@ export const upsert = internalMutation({
   handler: async (ctx, args) => {
     const existingPlugin = await ctx.db
     .query("plugins")
-    .withIndex("by_organization_and_service", (q) => 
+    .withIndex("by_organization_id_and_service", (q) => 
       q.eq("organizationID", args.organizationID).eq("service", args.service)
     )
     .unique()
@@ -41,7 +41,7 @@ export const getByOrganizationIdAndService = internalQuery({
   handler: async (ctx, args) => {
     return await ctx.db
     .query("plugins")
-    .withIndex("by_organization_and_service", (q) => 
+    .withIndex("by_organization_id_and_service", (q) => 
       q.eq("organizationID", args.organizationID).eq("service", args.service)
     )
     .unique()

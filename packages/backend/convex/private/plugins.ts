@@ -1,5 +1,47 @@
-import { query } from "../_generated/server";
+import { query, mutation } from "../_generated/server";
 import { v, ConvexError } from "convex/values";
+
+export const remove = mutation({
+  args: {
+    service: v.union(v.literal("vapi"))
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    
+    if (identity === null) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Identity not found",
+      });
+    }
+
+    const orgId = identity.orgId as string;
+
+    if (!orgId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Organization not found",
+      });
+    }
+
+    const existingPlugin = await ctx.db
+      .query("plugins")
+      .withIndex("by_organization_id_and_service", (q) =>
+        q.eq("organizationID", orgId).eq("service", args.service)
+      )
+      .unique();
+
+    if (!existingPlugin) {
+      throw new ConvexError({
+        code: "NOT_FOUND",
+        message: "Plugin not found"
+      });
+    }
+
+    await ctx.db.delete(existingPlugin._id);
+  },
+});
+
 
 export const getOne = query({
   args: {
@@ -23,5 +65,12 @@ export const getOne = query({
         message: "Invalid organization ID"
       })
     }
+
+    return await ctx.db
+      .query("plugins")
+      .withIndex("by_organization_id_and_service", (q) =>
+        q.eq("organizationID", orgId).eq("service", args.service)
+      )
+      .unique()
   },
 })

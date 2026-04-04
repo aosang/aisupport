@@ -8,7 +8,7 @@ export default defineSchema({
     secretName: v.string()
   })
   .index("by_organization_id", ["organizationID"])
-  .index("by_organization_and_service", ["organizationID", "service"])
+  .index("by_organization_id_and_service", ["organizationID", "service"])
   ,
 
   conversations: defineTable({
