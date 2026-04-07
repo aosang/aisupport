@@ -155,6 +155,24 @@ const VapiPluginForm = ({
             >
               <FormField 
                 control={form.control}
+                name="privateApiKey"
+                render={({field}) => (
+                  <FormItem>
+                    <Label>Private API key</Label>
+                    <FormControl>
+                      <Input 
+                        {...field}
+                        placeholder="Your private API key"
+                        type="password"
+                      /> 
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField 
+                control={form.control}
                 name="publicApiKey"
                 render={({field}) => (
                   <FormItem>
@@ -171,23 +189,6 @@ const VapiPluginForm = ({
                 )}
               />
 
-              <FormField 
-                control={form.control}
-                name="privateApiKey"
-                render={({field}) => (
-                  <FormItem>
-                    <Label>Private API key</Label>
-                    <FormControl>
-                      <Input 
-                        {...field}
-                        placeholder="Your private API key"
-                        type="password"
-                      /> 
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
               <DialogFooter>
                 <Button
                   disabled={form.formState.isSubmitting}
