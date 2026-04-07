@@ -30,7 +30,7 @@ import { useMutation } from "convex/react"
 import { api } from "@workspace/backend/_generated/api"
 import { FormSchema } from "../../type"
 import { widgetSettingsSchema } from "../../schemas"
-
+import { VapiFormFields } from "./vapi-form-fields"
 
 type WidgetSettings = Doc<"widgetSettings">
 
@@ -84,7 +84,7 @@ interface CustomizationFormProps {
 
   return (
     <Form {...form}>
-      <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="space-y-6 pb-8" onSubmit={form.handleSubmit(onSubmit)}>
         <Card>
           <CardHeader>
             <CardTitle>General Chat Settings</CardTitle>
@@ -182,10 +182,13 @@ interface CustomizationFormProps {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              TODO: Vapi settings
+              <VapiFormFields form={form} />
             </CardContent>
           </Card> 
         )}
+        <div className="flex justify-end pt-2">
+          <Button disabled={form.formState.isSubmitting} type="submit">Save Settings</Button>
+        </div>
       </form>
     </Form>
   )

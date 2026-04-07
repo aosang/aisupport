@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react"
 import { api } from "@workspace/backend/_generated/api"
-import { Loader2Icon, Loader } from "lucide-react"
+import { Loader2Icon } from "lucide-react"
 import { CustomizationForm } from "../components/customization-form"
 
 export const CustomizationView = () => {
@@ -13,7 +13,7 @@ export const CustomizationView = () => {
 
   if(isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-y-2 bg-muted p-8">
+      <div className="flex min-h-full w-full flex-1 flex-col items-center justify-center gap-y-2 bg-muted p-8">
         <Loader2Icon className="text-muted-foreground animate-spin" />
         <p className="text-muted-foreground text-sm">Loading settings...</p>
       </div>
@@ -31,7 +31,7 @@ export const CustomizationView = () => {
         </div>
 
         <div className="mt-8">
-          <CustomizationForm 
+          <CustomizationForm
             initialData={widgetSettings}
             hasVapiPlugin={!!vapiPlugin}
           />

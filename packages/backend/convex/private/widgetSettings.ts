@@ -10,7 +10,7 @@ export const upsert = mutation({
       suggestion3: v.optional(v.string()),
     }),
     vapiSettings: v.object({
-      assisctantId: v.optional(v.string()),
+      assistantId: v.optional(v.string()),
       phoneNumber: v.optional(v.string())
     })
   },
