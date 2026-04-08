@@ -23,11 +23,11 @@ export const useVapi = () => {
       return
     }
     // only for testing the vapi key, otherwise customers will provide their own IDs
-    const vapiInstance = new Vapi(vapiSecrets?.publicApiKey)
+    const vapiInstance = new Vapi(vapiSecrets.publicApiKey)
     setVapi(vapiInstance);
 
     vapiInstance.on('call-start', () => {
-      setIsConnected(false)
+      setIsConnected(true)
       setIsConnecting(false)
       setTranscript([])
     })
@@ -44,6 +44,11 @@ export const useVapi = () => {
 
     vapiInstance.on('speech-end', () => {
       setIsSpeaking(false)
+    })
+
+    vapiInstance.on('call-start-failed', () => {
+      setIsConnecting(false)
+      setIsConnected(false)
     })
 
     vapiInstance.on('error', (error) => {
@@ -67,7 +72,7 @@ export const useVapi = () => {
       vapiInstance?.stop()
     }
 
-  }, [])
+  }, [vapiSecrets?.publicApiKey])
 
   const startCall = () => {
     if(!vapiSecrets || !widgetSettings?.vapiSettings?.assistantId) {

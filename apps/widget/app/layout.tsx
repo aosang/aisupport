@@ -32,7 +32,11 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
       <body className="bg-background text-foreground">
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="w-screen h-screen">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   )
