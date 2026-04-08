@@ -1,7 +1,7 @@
 "use client"
 import { useAtomValue, useSetAtom } from "jotai"
 import { LoaderIcon } from "lucide-react"
-import { errorMessageAtom, loadingMessageAtom, screenAtom, organizationIDAtom, contactSessionIdAtomFamily, widgetSettingsAtom } from "@/modules/widget/atoms/widget-atoms"
+import { errorMessageAtom, loadingMessageAtom, screenAtom, organizationIDAtom, contactSessionIdAtomFamily, widgetSettingsAtom, vapiSecretsAtom } from "@/modules/widget/atoms/widget-atoms"
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header"
 import { useEffect, useState } from "react"
 import { useAction, useMutation, useQuery } from "convex/react"
@@ -19,6 +19,7 @@ export const WidgetLoadingScreen = ({organizationID}: {organizationID: string | 
   const setLoadingMessage = useSetAtom(loadingMessageAtom)
   const setErrorMessage = useSetAtom(errorMessageAtom)
   const setScreen = useSetAtom(screenAtom)
+  const setVapiSecrets = useSetAtom(vapiSecretsAtom)
 
   const contactSessionId = useAtomValue(contactSessionIdAtomFamily(organizationID || ""))
 
@@ -105,10 +106,36 @@ export const WidgetLoadingScreen = ({organizationID}: {organizationID: string | 
 
     if(widgetSettings !== undefined) {
       setWidgetSettings(widgetSettings)
-      setStep("done")
+      setStep("vapi")
     }
 
   }, [step, setStep, widgetSettings, setWidgetSettings, setLoadingMessage])
+
+  // step4 load vapi secrets(optional)
+  const getVapiSecrets = useAction(api.public.secrets.getVapiSecrets)
+
+  useEffect(() => {
+    if(step !== "vapi") {
+      return
+    }
+
+    if (!organizationID) {
+      setErrorMessage("Organization ID is required")
+      setScreen("error")
+      return
+    }
+
+    setLoadingMessage("Loading voice features...")
+    getVapiSecrets({ organizationID })
+      .then((secrets) => {
+        setVapiSecrets(secrets)
+        setStep("done")
+      })
+      .catch(() => {
+        setVapiSecrets(null)
+        setStep("done")
+      })
+  }, [step, setStep, organizationID, getVapiSecrets, setVapiSecrets, setLoadingMessage])
 
   useEffect(() => {
     if(step !== 'done') return 
