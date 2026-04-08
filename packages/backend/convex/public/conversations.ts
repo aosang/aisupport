@@ -75,6 +75,7 @@ export const getOne = query({
       })
     }
 
+
     const conversation = await ctx.db.get(args.conversationId)
 
     if(!conversation) return null
@@ -108,6 +109,13 @@ export const create = mutation({
         message: 'Invaild session'
       })
     }
+
+    const widgetSettings = await ctx.db
+      .query("widgetSettings")
+      .withIndex("by_organization_id", (q) => 
+        q.eq("organizationID", args.organizationID)
+      )
+      .unique()
     
     const { threadId } = await supportAgent.createThread(ctx, {
       userId: args.organizationID
@@ -118,8 +126,7 @@ export const create = mutation({
       threadId,
       message: {
         role: "assistant",
-        // Later Modify to widget settings inital message
-        content: "Hello, How can I help you today?"
+        content: widgetSettings?.greetMessage || "Hello, How can I help you today?"
       }
     })
     
