@@ -32,6 +32,11 @@ export default function RootLayout({
         signUpUrl="/sign-up"
         signInForceRedirectUrl="/org-selection"
         signUpForceRedirectUrl="/org-selection"
+        appearance={{
+          variables: {
+            colorPrimary: "#3c82f6"
+          }
+        }}
       >
         <Providers>
           <Toaster />

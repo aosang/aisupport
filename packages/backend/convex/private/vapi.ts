@@ -34,11 +34,8 @@ export const getAssistants = action({
       }
     )
 
-    if(!plugin) {
-      throw new ConvexError({
-        code: "Not Found",
-        message: "Plugin not found"
-      })
+    if (!plugin) {
+      return []
     }
 
     const secretName = plugin.secretName
@@ -102,11 +99,8 @@ export const getPhoneNumbers = action({
       }
     )
 
-    if(!plugin) {
-      throw new ConvexError({
-        code: "Not Found",
-        message: "Plugin not found"
-      })
+    if (!plugin) {
+      return []
     }
 
     const secretName = plugin.secretName

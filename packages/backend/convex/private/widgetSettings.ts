@@ -60,19 +60,14 @@ export const getOne = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity()
 
+    // Clerk org switch can briefly leave JWT unset; avoid throwing so the client can re-fetch.
     if(identity === null) {
-      throw new ConvexError({
-        code: "UNAUTHORIZED",
-        message: "Identity not found"
-      })
+      return null
     }
 
     const orgId = identity.orgId as string
     if(!orgId) {
-      throw new ConvexError({
-        code: "UNAUTHORIZED",
-        message: "Invalid organization ID"
-      })
+      return null
     }
 
     const widgetSettings = await ctx.db

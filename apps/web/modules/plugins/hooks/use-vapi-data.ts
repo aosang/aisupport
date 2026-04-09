@@ -34,7 +34,7 @@ export const useVapiAssistants = (): {
           return
         }
         setError(error as Error)
-        toast.error("Failed to fetch phone numbers")
+        toast.error("Failed to fetch assistants")
       }finally {
         if(!cancelled) {
           setIsLoading(false)
