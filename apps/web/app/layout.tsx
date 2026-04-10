@@ -27,11 +27,7 @@ export default function RootLayout({
       className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
       <body className="bg-background text-foreground">
-     <ClerkProvider
-        signInUrl="/sign-in"
-        signUpUrl="/sign-up"
-        signInForceRedirectUrl="/org-selection"
-        signUpForceRedirectUrl="/org-selection"
+      <ClerkProvider
         appearance={{
           variables: {
             colorPrimary: "#3c82f6"

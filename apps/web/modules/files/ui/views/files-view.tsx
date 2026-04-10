@@ -18,7 +18,7 @@ import { Badge } from '@workspace/ui/components/badge'
 import { FileIcon, PlusIcon, MoreHorizontalIcon, TrashIcon } from 'lucide-react'
 import { useInfiniteScroll } from '@workspace/ui/hooks/use-infinite-scroll'
 import { InfiniteScrollTrigger } from '@workspace/ui/components/infinite-scroll-trigger'
-import { usePaginatedQuery } from "convex/react"
+import { useConvexAuth, usePaginatedQuery } from "convex/react"
 import { api } from "@workspace/backend/_generated/api"
 import type { PublicFile } from "@workspace/backend/private/files"
 import { UploadDialog } from '../components/upload-dialog'
@@ -26,10 +26,12 @@ import { DeleteFileDialog } from '../components/delete-file-dialog'
 import { useState } from 'react'
 
 export const FilesView = () => {
+  const { isLoading: authLoading, isAuthenticated } = useConvexAuth()
+
   const files = usePaginatedQuery(
     api.private.files.list,
-    {},
-    {initialNumItems: 10}
+    !authLoading && isAuthenticated ? {} : "skip",
+    { initialNumItems: 10 }
   )
 
   const {
@@ -95,7 +97,17 @@ export const FilesView = () => {
               </TableHeader>
               <TableBody>
                 {(() => {
-                  if(isLoadingFirstPage) {
+                  if (authLoading) {
+                    return (
+                      <TableRow>
+                        <TableCell className="h-24 text-center" colSpan={4}>
+                          Loading…
+                        </TableCell>
+                      </TableRow>
+                    )
+                  }
+
+                  if (isLoadingFirstPage) {
                     return (
                       <TableRow>
                         <TableCell className='h-24 text-center' colSpan={4}>

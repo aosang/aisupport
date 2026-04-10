@@ -94,7 +94,7 @@ export const ConversationIdView = ({
         conversationId,
         prompt: values.message
       })
-      form.reset
+      form.reset()
     }catch(error) {
       console.log(error);
     }

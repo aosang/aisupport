@@ -65,9 +65,16 @@ export const WidgetChatScreen = () => {
   const setScreen = useSetAtom(screenAtom)
   const setConversationId = useSetAtom(conversationIdAtom)
 
-  const widgetSettings = useAtomValue(widgetSettingsAtom)
+  const widgetSettingsFromInit = useAtomValue(widgetSettingsAtom)
   const conversationId = useAtomValue(conversationIdAtom)
   const organizationID = useAtomValue(organizationIDAtom)
+  const widgetSettingsLive = useQuery(
+    api.public.widgetSettings.getByOrganizationId,
+    organizationID ? { organizationID } : "skip"
+  )
+  /** Prefer live query so admin saves show up without reloading the embed; fall back to boot-time atom while loading. */
+  const widgetSettings =
+    widgetSettingsLive !== undefined ? widgetSettingsLive : widgetSettingsFromInit
   const contactSessionId = useAtomValue(
     contactSessionIdAtomFamily(organizationID || "")
   )
@@ -108,13 +115,19 @@ export const WidgetChatScreen = () => {
     if (!ds) {
       return []
     }
-
-    return Object.keys(widgetSettings.defaultSuggestions).map((key) => {
-      return widgetSettings.defaultSuggestions[
-        key as keyof typeof widgetSettings.defaultSuggestions
-      ]
-    })
+    return [ds.suggestion1, ds.suggestion2, ds.suggestion3].filter(
+      (s): s is string => typeof s === "string" && s.trim().length > 0
+    )
   }, [widgetSettings])
+
+  const threadUiMessages = useMemo(
+    () => toUIMessages(messages.results ?? []),
+    [messages.results]
+  )
+
+  const showDefaultSuggestions =
+    (threadUiMessages?.length ?? 0) >= 1 &&
+    !threadUiMessages.some((m) => m.role === "user")
 
   return (
     <>
@@ -141,7 +154,7 @@ export const WidgetChatScreen = () => {
             onLoadMore={handleLoadMore}
             ref={topElementRef}
           />
-          {toUIMessages(messages.results?? [])?.map(message => {
+          {threadUiMessages?.map((message) => {
             return (
               <AIMessage 
                 from={message.role === 'user'? 'user' : 'assistant'}
@@ -164,12 +177,9 @@ export const WidgetChatScreen = () => {
         </AIConversationContent>
       </AIConversation>
       
-      {toUIMessages(messages.results?? [])?.length === 1 && (
+      {showDefaultSuggestions && suggestions.length > 0 && (
         <AISuggestions className='flex flex-row w-full items-end p-2'>
           {suggestions.map((suggestion) => {
-            if(!suggestion) {
-              return null
-            }
             return (
               <AISuggestion 
                 key={suggestion}
