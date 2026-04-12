@@ -33,6 +33,7 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 const formSchema = z.object({
   message: z.string().min(1, "Message is required")
@@ -73,6 +74,7 @@ export const ConversationIdView = ({
 
   const [isEnhancing, setIsEnhancing] = useState(false)
   const enhanceResponse = useAction(api.private.messages.enhanceResponse)
+
   const handleEnhanceResponse = async () => {
     setIsEnhancing(true)
     const currentValue = form.getValues('message')
@@ -81,6 +83,7 @@ export const ConversationIdView = ({
 
       form.setValue('message', response)
      }catch(error) {
+      toast.error("Something went wrong")
       console.error(error)
      }finally{
       setIsEnhancing(false)

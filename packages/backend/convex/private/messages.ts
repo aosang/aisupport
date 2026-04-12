@@ -1,5 +1,5 @@
 import { saveMessage } from "@convex-dev/agent";
-import { components } from "../_generated/api"; 
+import { components, internal } from "../_generated/api"; 
 import { mutation, query, action } from "../_generated/server";
 import { ConvexError, v } from 'convex/values'
 import { supportAgent } from "../system/ai/agents/supportAgent";
@@ -28,6 +28,20 @@ export const enhanceResponse = action({
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Invalid organization ID"
+      })
+    }
+
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      {
+        organizationID: orgId
+      }
+    )
+
+    if(subscription?.status !== "active") {
+      throw new ConvexError({
+        code: "BAD_REQUEST",
+        message: "Missing subscription"
       })
     }
 

@@ -9,6 +9,7 @@ import {
   guessMimeTypeFromExtension,
   vEntryId
 } from '@convex-dev/rag'
+import { internal } from "../_generated/api";
 import { extractTextContent } from "../lib/extractTextContent";
 import { Id } from "../_generated/dataModel";
 import { paginationOptsValidator } from "convex/server";
@@ -105,6 +106,20 @@ export const addFile = action({
       throw new ConvexError({
         code: "UNAUTHORIZED",
         message: "Invalid organization ID"
+      })
+    }
+
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      {
+        organizationID: orgId
+      }
+    )
+
+    if(subscription?.status !== "active") {
+      throw new ConvexError({
+        code: "BAD_REQUEST",
+        message: "Missing subscription"
       })
     }
 
