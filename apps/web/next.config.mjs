@@ -8,6 +8,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const nextConfig = {
   transpilePackages: ["@workspace/ui"],
   devIndicators: false,
+  async redirects() {
+    return [{
+      source: "/",
+      destination: "/conversations",
+      permanent: false
+    }]
+  },
   turbopack: {
     root: join(__dirname, "../.."),
   },
