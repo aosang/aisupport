@@ -45,6 +45,7 @@ export const WidgetInboxScreen = () => {
       <WidgetHeader>
         <div className="flex items-center gap-x-2">
           <Button 
+            aria-label="Back"
             variant="transparent" 
             size="icon" 
             onClick={() =>setScreen('selection')}

@@ -11,6 +11,7 @@ export const WidgetFooter = () => {
   return (
     <footer className="flex items-center justify-between border-t bg-background">
       <Button
+        aria-label="Home"
         className="h-14 flex-1 rounded-none"
         onClick={() => {setScreen('selection')}}
         size="icon"
@@ -21,6 +22,7 @@ export const WidgetFooter = () => {
         />
       </Button>
       <Button
+        aria-label="Inbox"
         className="h-14 flex-1 rounded-none"
         onClick={() => {setScreen('inbox')}}
         size="icon"

@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
@@ -19,6 +20,14 @@ const fontMono = Geist_Mono({
   /** 首屏很少用到 mono，避免预加载 woff2 却未在几秒内使用时的控制台警告 */
   preload: false,
 })
+
+export const metadata: Metadata = {
+  title: {
+    default: "AISupport Widget",
+    template: "%s · AISupport",
+  },
+  description: "Embeddable customer chat widget.",
+}
 
 export default function RootLayout({
   children,

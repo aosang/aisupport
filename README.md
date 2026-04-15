@@ -1,21 +1,21 @@
-# shadcn/ui monorepo template
+### AISupport
 
-This is a Next.js monorepo template with shadcn/ui.
+面向客服场景的 **可嵌入组件 + 管理端**：访客通过脚本加载组件聊天
 
-## Adding components
+**在线演示：**
 
-To add components to your app, run the following command at the root of your `web` app:
+---
 
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
+### 功能简介
 
-This will place the ui components in the `packages/ui/src/components` directory.
+客户端：帮助企业快速搭建快速在线客服入口：无需要做复杂配置，打开企业官网即可发起咨询。
 
-## Using components
+管理端：后台团队统一处理会话，更新处理状态/人工介入会话。上传维护知识库资料。调整AI话术及引导内容。
+支持通过开启订阅解锁进阶能力（语音插件等...）
 
-To use the components in your app, import them from the `ui` package.
+### 使用方式
 
-```tsx
-import { Button } from "@workspace/ui/components/button";
-```
+- 在管理端后台复制嵌入代码
+
+- 页面右下角（或左下角）会出现悬浮按钮，点击展开聊天窗口
+

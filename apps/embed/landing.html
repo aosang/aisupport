@@ -6,6 +6,27 @@
   <title>Test Widget</title>
 </head>
 <body>
-  <script src="https://aisupport-widget.vercel.app/widget.js" data-organization-id="org_3C9ML2mHdxThd0913wDZ2on2Bsy"></script>
+  <script type="text/javascript">
+    const formData = {
+      amount: 1000,
+      date: new Date("2026-04-15")
+    }
+
+    const snapshot = JSON.parse(JSON.stringify(formData))
+
+    // const snapshot = structuredClone(formData)
+
+    console.log("原始", formData)
+
+    console.log("快照", snapshot)
+
+    
+  </script>
+  <!-- <script 
+    src="https://widget.wangle.run//widget.js" 
+    data-organization-id="org_3C9ML2mHdxThd0913wDZ2on2Bsy"
+    data-position="bottom-left"
+  >
+  </script> -->
 </body>
 </html>

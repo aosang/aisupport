@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Providers } from "@/components/provider"
 import { Toaster } from "@workspace/ui/components/sonner"
@@ -14,6 +15,14 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
   preload: false,
 })
+
+export const metadata: Metadata = {
+  title: {
+    default: "AISupport",
+    template: "%s · AISupport",
+  },
+  description: "Customer support dashboard and knowledge base for your team.",
+}
 
 export default function RootLayout({
   children,
