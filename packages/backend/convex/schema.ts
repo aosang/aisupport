@@ -33,6 +33,12 @@ export default defineSchema({
   .index("by_organization_id_and_service", ["organizationID", "service"])
   ,
 
+  /**  plugins.secretName */
+  tenantPluginSecrets: defineTable({
+    secretName: v.string(),
+    value: v.string(),
+  }).index("by_secret_name", ["secretName"]),
+
   conversations: defineTable({
     threadId: v.string(),
     organizationID: v.string(),

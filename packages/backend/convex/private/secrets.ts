@@ -1,16 +1,16 @@
-import { internal } from "../_generated/api";
 import { mutation } from "../_generated/server";
 import { ConvexError, v } from "convex/values";
+import { upsertVapiPluginCredentials } from "../lib/pluginCredentials";
 
 export const upsert = mutation({
   args: {
     service: v.union(v.literal("vapi")),
-    value: v.any()
+    value: v.any(),
   },
 
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
-    
+
     if (identity === null) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
@@ -28,11 +28,6 @@ export const upsert = mutation({
     }
 
     // TODO: Check for subscription
-    await ctx.scheduler.runAfter(0, internal.system.secrets.upsert, {
-      service: args.service,
-      organizationID: orgId,
-      value: args.value
-    })
-    
-  }
-})
+    await upsertVapiPluginCredentials(ctx, orgId, args.value);
+  },
+});

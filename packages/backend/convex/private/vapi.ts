@@ -1,7 +1,10 @@
+"use node";
+
 import { VapiClient, Vapi } from "@vapi-ai/server-sdk";
 import { internal } from "../_generated/api";
 import { action } from "../_generated/server";
-import { getSecretValue, parseSecretString } from "../lib/secrets";
+import { loadVapiTenantSecretRaw } from "../lib/vapiCredentials";
+import { parseSecretString } from "../lib/secrets";
 import { ConvexError } from "convex/values";
 
 export const getAssistants = action({
@@ -38,29 +41,25 @@ export const getAssistants = action({
       return []
     }
 
-    const secretName = plugin.secretName
-    const secretValue = await getSecretValue(secretName)
+    const secretValueRaw = await loadVapiTenantSecretRaw(
+      ctx,
+      orgId,
+      plugin.secretName,
+    )
+    if (secretValueRaw === null) {
+      return []
+    }
     const secretData = parseSecretString<{
       privateApiKey: string
       publicApiKey: string
-    }>(secretValue)
+    }>(secretValueRaw)
 
-    if(!secretData) {
-      throw new ConvexError({
-        code: "Not_Found",
-        message: "Credentials not found"
-      })
-    }
-
-    if(!secretData.privateApiKey || !secretData.publicApiKey) {
-      throw new ConvexError({
-        code: "Not_Found",
-        message: "Credentials incomplete. Please reconnected your vapi account"
-      })
+    if (!secretData?.privateApiKey || !secretData.publicApiKey) {
+      return []
     }
 
     const vapiClient = new VapiClient({
-      token: secretData.privateApiKey
+      token: secretData.privateApiKey,
     })
 
     const assistants = await vapiClient.assistants.list()
@@ -103,29 +102,25 @@ export const getPhoneNumbers = action({
       return []
     }
 
-    const secretName = plugin.secretName
-    const secretValue = await getSecretValue(secretName)
+    const secretValueRaw = await loadVapiTenantSecretRaw(
+      ctx,
+      orgId,
+      plugin.secretName,
+    )
+    if (secretValueRaw === null) {
+      return []
+    }
     const secretData = parseSecretString<{
       privateApiKey: string
       publicApiKey: string
-    }>(secretValue)
+    }>(secretValueRaw)
 
-    if(!secretData) {
-      throw new ConvexError({
-        code: "Not_Found",
-        message: "Credentials not found"
-      })
-    }
-
-    if(!secretData.privateApiKey || !secretData.publicApiKey) {
-      throw new ConvexError({
-        code: "Not_Found",
-        message: "Credentials incomplete. Please reconnected your vapi account"
-      })
+    if (!secretData?.privateApiKey || !secretData.publicApiKey) {
+      return []
     }
 
     const vapiClient = new VapiClient({
-      token: secretData.privateApiKey
+      token: secretData.privateApiKey,
     })
 
     const phoneNumbers = await vapiClient.phoneNumbers.list()
