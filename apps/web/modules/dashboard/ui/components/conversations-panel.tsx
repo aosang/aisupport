@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@workspace/ui/components/skeleton"
 import { ListIcon, ArrowRightIcon, ArrowUpIcon, CheckIcon, CornerUpLeftIcon } from "lucide-react"
 import { ScrollArea } from "@workspace/ui/components/scroll-area"
-import { usePaginatedQuery } from "convex/react"
+import { useConvexAuth, usePaginatedQuery } from "convex/react"
 import { api } from "@workspace/backend/_generated/api"
 import { cn } from "@workspace/ui/lib/utils"
 import { usePathname } from "next/navigation"
@@ -23,13 +23,17 @@ export const ConversationsPanel = () => {
   const statusFilter = useAtomValue(statusFilterAtom)
   const setStatusFilter = useSetAtom(statusFilterAtom)
 
+  const { isLoading: convexAuthLoading, isAuthenticated } = useConvexAuth()
+
   const conversations = usePaginatedQuery(
     api.private.conversations.getMany,
+    !convexAuthLoading && isAuthenticated
+      ? {
+          status: statusFilter === "all" ? undefined : statusFilter,
+        }
+      : "skip",
     {
-      status: statusFilter === "all"? undefined : statusFilter 
-    },
-    {
-      initialNumItems: 5
+      initialNumItems: 5,
     }
   )
 
@@ -87,9 +91,9 @@ export const ConversationsPanel = () => {
           </SelectContent>
         </Select>
       </div>
-      {isLoadingFirstPage ? (
+      {convexAuthLoading || !isAuthenticated || isLoadingFirstPage ? (
         <SkeletonConversations />
-      ): (
+      ) : (
         <ScrollArea className="min-h-0 flex-1">
           <div className="flex w-full min-w-0 flex-1 flex-col text-sm">
             {conversations.results.map(conversation => {

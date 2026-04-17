@@ -66,7 +66,10 @@ const components: Options["components"] = {
   ),
   a: ({ children, className, ...props }) => (
     <a
-      className={cn("font-medium text-primary underline", className)}
+      className={cn(
+        "font-medium text-primary underline group-[.is-user]:text-primary-foreground",
+        className,
+      )}
       rel="noreferrer"
       target="_blank"
       {...props}
