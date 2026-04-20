@@ -33,9 +33,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
+      className={`${fontSans.variable} ${fontMono.variable} h-full font-sans antialiased`}
     >
-      <body className="bg-background text-foreground">
+      <body className="h-full bg-background text-foreground">
       <ClerkProvider
         appearance={{
           variables: {

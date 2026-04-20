@@ -50,7 +50,7 @@ export const IntegrationsView = () => {
         onOpenChange={setDialogOpen}
         snippet={selectedSnippet}
       />
-      <div className="flex min-h-screen flex-col bg-muted p-8">
+      <div className="flex min-h-0 w-full flex-col bg-muted p-8">
         <div className="mx-auto w-full max-w-3xl">
           <div className="space-y-2">
             <h1 className="text-2xl md:text-4xl">Set up & Intergrations</h1>

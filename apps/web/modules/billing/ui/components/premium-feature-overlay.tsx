@@ -8,34 +8,38 @@ import {
   MicIcon,
   PaletteIcon,
   PhoneIcon,
-  UsersIcon
+  UsersIcon,
 } from "lucide-react"
 
 import { useRouter } from "next/navigation"
 import { Button } from "@workspace/ui/components/button"
-import { 
+import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@workspace/ui/components/card"
+import { cn } from "@workspace/ui/lib/utils"
 
 interface Feature {
-  icon: LucideIcon,
-  label: string,
+  icon: LucideIcon
+  label: string
   description: string
 }
 
 interface PremiumFeatureOverlayProps {
   children: React.ReactNode
+  /** 未订阅时底部主按钮文案 */
+  ctaLabel?: string
+  className?: string
 }
 
 const features: Feature[] = [
   {
     icon: BotIcon,
     label: "AI Customer Support",
-    description: "Intelligent automated response 24/7"
+    description: "Intelligent automated response 24/7",
   },
   {
     icon: MicIcon,
@@ -65,56 +69,77 @@ const features: Feature[] = [
 ]
 
 export const PremiumFeatureOverlay = ({
-  children
+  children,
+  ctaLabel = "View Plans",
+  className,
 }: PremiumFeatureOverlayProps) => {
   const router = useRouter()
 
   return (
-    <div className="relative min-h-screen">
-      {/* Blurred background content */}
-      <div className="pointer-events-none select-none blur-[2px]">
+    <div
+      className={cn(
+        "relative flex min-h-0 w-full min-w-0 flex-1 flex-col",
+        className,
+      )}
+    >
+      {/* 背景：模糊占位，避免未订阅时空白过扁 */}
+      <div
+        aria-hidden
+        className="pointer-events-none min-h-[min(420px,55vh)] select-none blur-[1.5px] opacity-90"
+      >
         {children}
       </div>
 
-      {/* overlay */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-linear-to-b from-background/80 via-background/60 to-muted/80"
+      />
+      <div aria-hidden className="absolute inset-0 bg-black/45 backdrop-blur-[3px]" />
 
-      {/* upgrade prompt */}
-      <div className="absolute inset-0 z-40 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="flex items-center justify-center">
-              <div className="mb-2 inline-flex h-12 w-12 items-center justify-center rounded-full border bg-muted">
-                <GemIcon className="size-6 text-muted-foreground" />
-                
+      <div className="absolute inset-0 z-40 flex items-center justify-center overflow-y-auto p-4 sm:p-6">
+        <Card className="w-full max-w-md border border-border/80 bg-card shadow-xl sm:max-w-lg">
+          <CardHeader className="space-y-3 border-b border-border/60 pb-4 text-center">
+            <div className="flex justify-center">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-muted/80">
+                <GemIcon className="size-6 text-primary" />
               </div>
             </div>
-            <CardTitle className="text-xl">Premium Feature</CardTitle>
-            <CardDescription>This feature require a Pro subscription</CardDescription>
+            <CardTitle className="text-xl font-semibold tracking-tight sm:text-2xl">
+              Premium Feature
+            </CardTitle>
+            <CardDescription className="text-balance text-sm leading-relaxed text-muted-foreground">
+              This feature requires a Pro subscription.
+            </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Features List */}
-            <div className="space-y-6">
-              {features.map((feature) => (
-                <div key={feature.label} className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-lg border bg-muted">
-                    <feature.icon className="size-4 text-muted-foreground" />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-sm">{feature.label}</p>
-                    <p className="text-muted-foreground text-xs">{feature.description}</p>
-                  </div>
-                </div>
-              ))}
 
-              <Button
-                className="w-full"
-                size="lg"
-                onClick={() => router.push('/billing')} 
-              >
-                View Plans
-              </Button>
-            </div>
+          <CardContent className="space-y-5 pt-5">
+            <ul className="max-h-[min(52vh,420px)] space-y-4 overflow-y-auto pr-1 sm:max-h-none sm:overflow-visible">
+              {features.map((feature) => (
+                <li key={feature.label}>
+                  <div className="flex gap-3 text-left">
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-md border border-border bg-muted/40">
+                      <feature.icon className="size-4 text-muted-foreground" />
+                    </div>
+                    <div className="min-w-0 flex-1 space-y-0.5">
+                      <p className="text-sm font-semibold leading-snug text-foreground">
+                        {feature.label}
+                      </p>
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              className="h-11 w-full rounded-lg text-base font-semibold shadow-sm"
+              size="lg"
+              onClick={() => router.push("/billing")}
+            >
+              {ctaLabel}
+            </Button>
           </CardContent>
         </Card>
       </div>

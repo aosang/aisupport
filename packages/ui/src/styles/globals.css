@@ -163,6 +163,7 @@
 /* 默认字体栈；next/font 在 <html> 上的 class 会覆盖 --font-sans / --font-mono（更高优先级） */
 @layer base {
   html {
+    @apply h-full;
     --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
@@ -183,7 +184,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    /* h-full + overflow-hidden：避免与 dashboard <main overflow-y-auto> 叠出双滚动条 */
+    @apply h-full overflow-hidden bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
     font-weight: 500;
   }

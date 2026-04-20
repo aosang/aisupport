@@ -13,7 +13,7 @@ export const CustomizationView = () => {
 
   if(isLoading) {
     return (
-      <div className="flex min-h-full w-full flex-1 flex-col items-center justify-center gap-y-2 bg-muted p-8">
+      <div className="flex min-h-0 w-full flex-1 flex-col items-center justify-center gap-y-2 bg-muted p-8">
         <Loader2Icon className="text-muted-foreground animate-spin" />
         <p className="text-muted-foreground text-sm">Loading settings...</p>
       </div>
@@ -21,7 +21,7 @@ export const CustomizationView = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-muted p-8">
+    <div className="flex min-h-0 w-full flex-col bg-muted p-8">
       <div className="max-w-3xl mx-auto w-full">
         <div className="space-y-2">
           <h1 className="text-2xl md:text-4xl">Widget Customization</h1>
