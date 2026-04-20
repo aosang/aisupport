@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from "@workspace/ui/components/accordion"
+import { isLikelyConvexDocumentId } from "@/lib/convex-route-params"
 
 type InfoItem = {
   label: string,
@@ -32,7 +33,11 @@ type InfoSection = {
 
 export const ContactPanel = () => {
   const params = useParams()
-  const conversationID = params.conversationId as (Id<"conversations"> | null)
+  const raw = params.conversationId
+  const conversationID =
+    typeof raw === "string" && isLikelyConvexDocumentId(raw)
+      ? (raw as Id<"conversations">)
+      : null
 
   const contactSession = useQuery(api.private.contactSessions.getOneByConversationId, 
     conversationID? {
