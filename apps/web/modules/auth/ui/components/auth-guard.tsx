@@ -11,7 +11,7 @@ export const AuthGuard = ({children}: {children: React.ReactNode}) => {
   if (!isLoaded) {
     return (
       <AuthLayout>
-        <Image width={36} height={36} alt="logo" src="mylogo.svg" className="mb-1" />
+        <Image width={36} height={36} alt="logo" src="/mylogo.svg" className="mb-1" />
         <p>Loading...</p>
       </AuthLayout>
     )

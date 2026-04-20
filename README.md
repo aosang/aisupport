@@ -1,4 +1,6 @@
-### AISupport
+[中文](./README.md)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[English](./README.EN.md)
+
+## AISupport
 
 面向客服场景的 **可嵌入组件 + 管理端**：访客通过脚本加载组件聊天
 
