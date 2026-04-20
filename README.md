@@ -2,7 +2,7 @@
 
 面向客服场景的 **可嵌入组件 + 管理端**：访客通过脚本加载组件聊天
 
-**在线演示：**
+**在线演示：**： [AISupport](https://app.wangle.run)
 
 ---
 
@@ -15,7 +15,19 @@
 
 ### 使用方式
 
-- 在管理端后台复制嵌入代码
+- 在管理端后台复制嵌入代码, 将它粘贴到前端HTML页面中, data-position的可选值，目前支持
+bottom-right/bottom-left(左下角或右下角)
+
+
+```HTML
+<script 
+  src="https://cdn.example.com/widget.js" 
+  data-organization-id="your organization id"
+  data-position="bottom-right"
+>
+</script>
+```
 
 - 页面右下角（或左下角）会出现悬浮按钮，点击展开聊天窗口
 
+<img src="https://www.wangle.run/images/widget-show.gif" width="260" />
