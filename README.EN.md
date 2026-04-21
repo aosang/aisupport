@@ -33,8 +33,4 @@ An **embeddable widget + admin dashboard** for customer support: visitors chat v
 
 <img src="https://www.wangle.run/images/widget-show.gif" width="260" />
 
-- **Note (Windows):** If the AI voice assistant does not pick up audio, verify in your browser settings that the selected microphone and speaker/headphone output match the devices you are actually using. See the screenshots below:
-
-<img src="https://wangle.run/images/audio.png" width="260" />
-
-<img src="https://wangle.run/images/google_audio.png" width="260" />
+- **Note (Windows):** If the AI voice assistant does not pick up audio, verify in your browser settings that the selected microphone and speaker/headphone output match the devices you are actually using. 
