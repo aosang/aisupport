@@ -33,3 +33,9 @@ bottom-right/bottom-left(左下角或右下角)
 - 页面右下角（或左下角）会出现悬浮按钮，点击展开聊天窗口
 
 <img src="https://www.wangle.run/images/widget-show.gif" width="260" />
+
+- 注意：如果在Windows系统下调用AI语音助手时无法识别声音，确认浏览器设置的声音输出/输入设备是当前连接的声音设备，参考图片：
+
+<img src="https://wangle.run/images/audio.png" width="260">
+
+<img src="https://wangle.run/images/google_audio.png" width="260">
