@@ -1,5 +1,5 @@
 import { saveMessage } from "@convex-dev/agent";
-import { components, internal } from "../_generated/api"; 
+import { internal } from "../_generated/api";
 import { mutation, query, action } from "../_generated/server";
 import { ConvexError, v } from 'convex/values'
 import { supportAgent } from "../system/ai/agents/supportAgent";
@@ -111,7 +111,7 @@ export const create = mutation({
     const rawAgentName = identity.familyName ?? identity.firstName
     const agentName = typeof rawAgentName === "string" ? rawAgentName : "Operator"
 
-    await saveMessage(ctx, components.agent, {
+    await saveMessage(ctx, supportAgent.component, {
       threadId: conversation.threadId,
       agentName,
       message: {

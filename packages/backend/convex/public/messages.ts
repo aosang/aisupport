@@ -1,5 +1,5 @@
 import { saveMessage } from "@convex-dev/agent";
-import { components, internal } from "../_generated/api";
+import { internal } from "../_generated/api";
 import { action, query } from "../_generated/server";
 import { ConvexError, v } from 'convex/values'
 import { supportAgent } from "../system/ai/agents/supportAgent";
@@ -81,7 +81,7 @@ export const create = action({
         }
       )
     }else {
-      await saveMessage(ctx, components.agent, {
+      await saveMessage(ctx, supportAgent.component, {
         threadId: args.threadId,
         prompt: args.prompt
       })

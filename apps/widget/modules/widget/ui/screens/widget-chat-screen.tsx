@@ -161,7 +161,12 @@ export const WidgetChatScreen = () => {
                 key={message.id}
               >
                 <AIMessageContent>
-                  <AIResponse>{message.content}</AIResponse>
+                  <AIResponse>
+                    {message.parts
+                      .filter((part) => part.type === "text")
+                      .map((part) => part.text)
+                      .join("")}
+                  </AIResponse>
                 </AIMessageContent>
                 {/* TODO: Add avatar component */}
                 {message.role ==='assistant' && (

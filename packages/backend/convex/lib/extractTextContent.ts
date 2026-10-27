@@ -101,7 +101,7 @@ async function extractPdfText(
       {
         role: 'user',
         content: [
-          { type: "file", data: new URL(url), mimeType, filename }
+          { type: "file", data: new URL(url), mediaType: mimeType, filename }
         ]
       }
     ]

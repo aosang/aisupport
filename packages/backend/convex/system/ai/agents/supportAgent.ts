@@ -6,7 +6,8 @@ import { SUPPORT_AGENT_PROMPT } from "../constants";
 export const supportAgent = new Agent(
   components.agent as unknown as AgentComponent,
   {
-    chat: openaiProvider.chat("gpt-4o-mini"),
+    name: "support-agent",
+    languageModel: openaiProvider.chat("gpt-4o-mini"),
     instructions: SUPPORT_AGENT_PROMPT
   }
 );
